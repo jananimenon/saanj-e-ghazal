@@ -132,10 +132,32 @@ button:active{
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-#shuffleBtn{
-  width:60px;
-  height:60px;
-  border-radius:50%;
+#shuffleBtn {
+  width: 60px;           /* same as other buttons */
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0d21a1;   /* default background */
+  color: #eef0f2;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#shuffleBtn:hover {
+  transform: scale(1.15);
+  background: #0f2fff;
+}
+
+#shuffleBtn:active {
+  transform: scale(0.95);
+}
+
+/* GOLD highlight when shuffle is ON */
+#shuffleBtn.active {
+  background: #FFD700;  /* gold accent */
 }
 
 /* PLAYLIST */
@@ -337,9 +359,15 @@ prevBtn.onclick = ()=>{
 };
 
 /* SHUFFLE BUTTON */
-shuffleBtn.onclick = ()=>{
-  shuffleOn = !shuffleOn;
-  shuffleBtn.style.background = shuffleOn?"#00f":"#0d21a1";
+shuffleBtn.onclick = () => {
+  shuffleOn = !shuffleOn;                     // toggle shuffle mode
+  shuffleBtn.classList.toggle("active", shuffleOn); // add/remove gold class
+  if (shuffleOn) {
+    shuffleArray(shuffledSongs);              // shuffle the array
+  } else {
+    shuffledSongs = [...songs];              // restore original order
+  }
+  playSong(currentIndex);                     // play current song
 };
 
 /* UPDATE PROGRESS */
