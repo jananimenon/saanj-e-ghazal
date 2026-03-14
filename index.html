@@ -187,14 +187,32 @@ starContainer.appendChild(star)
 
 /* SONG LIST */
 
-const songs=[
-
-{url:encodeURI("Begum Akhtar - Yeh Na Thi Humari Qismat.mp3")},
-{url:encodeURI("Begum Akhtar - Woh Jo Ham Mein Tum Mein.mp3")},
-{url:encodeURI("Begum Akhtar - Mere Humnafas Mere Humnava.mp3")},
-{url:encodeURI("Begum Akhtar - Aye mohabat tere anjam pe rona aaya.mp3")}
-
-]
+const songs = [
+  {
+    url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Chitra%20Singh%20%26%20Jagjit%20Singh%20-%20Baad%20Muddat%20Unhain%20(From%20Main%20Aur%20Meri%20Tanhai).mp3",
+    title: "Baad Mudat Unhein",
+    artist: "Jagjit Singh",
+    artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
+  },
+  {
+    url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Asha%20Bhosle%20%26%20Jagjit%20Singh%20-%20Jab%20Samne%20Tum%20Aa%20Jate%20Ho.mp3",
+    title: "Jab Saamne Tum Aajate Ho",
+    artist: "Jagjit Singh, Asha Bhonsle",
+    artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
+  },
+  {
+    url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Ek%20Pyar%20Ka%20Nagma%20Hai%20_%20Lyrical%20Video%20_%20Jagjit%20Singh%20Old%20Hindi%20song%20_%20Evergreen%20Song.mp3",
+    title: "Ek Pyaar Ka Nagma Hai",
+    artist: "Jagjit Singh",
+    artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
+  },
+  {
+    url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Gham%20Ka%20Khazana%20Tera%20Bhi%20Hai%20With%20Lyrical%20_%20Jagjit%20Singh%20_%20Lata%20Mangeshkar%20_%20Sentimental%20Ghazal.mp3",
+    title: "Gham Ka Khazana Tera Bhi Hai",
+    artist: "Jagjit Singh",
+    artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
+  }
+];
 
 let currentIndex=0
 
@@ -228,50 +246,13 @@ list.appendChild(div)
 
 /* PLAY SONG */
 
-function playSong(i){
-
-currentIndex=i
-
-audio.src=songs[i].url
-
-audio.play()
-
-let fallback=songs[i].url
-.split("/")
-.pop()
-.replace(".mp3","")
-.replace(/%20/g," ")
-
-title.innerText=fallback
-artist.innerText=""
-
-/* TRY READING METADATA */
-
-jsmediatags.read(songs[i].url,{
-
-onSuccess:function(tag){
-
-let t=tag.tags
-
-if(t.title) title.innerText=t.title
-if(t.artist) artist.innerText=t.artist
-
-if(t.picture){
-
-let bytes=new Uint8Array(t.picture.data)
-
-let blob=new Blob([bytes],{type:t.picture.format})
-
-let url=URL.createObjectURL(blob)
-
-artwork.style.backgroundImage=`url(${url})`
-
-}
-
-}
-
-})
-
+function playSong(i) {
+  currentIndex = i;
+  audio.src = songs[i].url;
+  audio.play();
+  title.innerText = songs[i].title;
+  artist.innerText = songs[i].artist;
+  artwork.style.backgroundImage = `url(${songs[i].artwork})`;
 }
 
 /* PLAY PAUSE */
