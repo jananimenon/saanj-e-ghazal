@@ -1,381 +1,372 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Saanj-e-Ghazal Mixtape</title>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mixtape</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui;
+        background: #011638;
+        color: #eef0f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding-top: 40px;
+        /* top breathing space */
+        padding-bottom: 40px;
+        /* bottom breathing space */
+        box-sizing: border-box;
+      }
 
-<style>
-body{
-  margin:0;
-  font-family:system-ui;
-  background:#011638;
-  color:#eef0f2;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-  padding-top:40px;  /* top breathing space */
-  padding-bottom:40px; /* bottom breathing space */
-  box-sizing:border-box;
-}
+      /* STARS BACKGROUND */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
 
-/* STARS BACKGROUND */
-.stars{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-}
-.star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:#eef0f2;
-  border-radius:50%;
-  opacity:.7;
-  animation:twinkle 3s infinite;
-}
-@keyframes twinkle{
-  0%{opacity:.2}
-  50%{opacity:1}
-  100%{opacity:.2}
-}
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #eef0f2;
+        border-radius: 50%;
+        opacity: .7;
+        animation: twinkle 3s infinite;
+      }
 
-/* PLAYER */
-.player{
-  width:92%;
-  max-width:420px;
-  height:90vh;  /* fixed height */
-  background:#141414;
-  border-radius:20px;
-  padding:24px;
-  box-shadow:0 0 40px rgba(0,0,0,.6);
-  position:relative;
-  z-index:2;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  text-align:center;
-  box-sizing:border-box;
-}
+      @keyframes twinkle {
+        0% {
+          opacity: .2
+        }
 
-/* ARTWORK */
-.art{
-  width:100%;
-  aspect-ratio:1;
-  background:#000;
-  border-radius:12px;
-  background-size:cover;
-  background-position:center;
-  box-shadow:0 0 25px rgba(13,33,161,.5);
-  position:relative;
-}
+        50% {
+          opacity: 1
+        }
 
-/* PROGRESS BAR */
-.progress-container{
-  width:100%;
-  height:6px;
-  background:rgba(255,255,255,0.2);
-  border-radius:3px;
-  margin-top:10px;
-  cursor:pointer;
-  position:relative;
-}
-.progress{
-  height:100%;
-  background:#0f2fff;
-  border-radius:3px;
-  width:0%;
-}
+        100% {
+          opacity: .2
+        }
+      }
 
-/* SONG INFO CENTERED */
-.title{
-  font-size:20px;
-  font-weight:600;
-  margin-top:8px;
-}
-.artist{
-  font-size:16px;
-  opacity:.7;
-  margin-bottom:8px;
-}
+      /* PLAYER */
+      .player {
+        width: 92%;
+        max-width: 420px;
+        height: 90vh;
+        /* fixed height relative to viewport */
+        background: #141414;
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 0 40px rgba(0, 0, 0, .6);
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        text-align: center;
+        box-sizing: border-box;
+      }
 
-/* CONTROLS */
-.controls{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-}
+      /* ARTWORK */
+      .art {
+        width: 100%;
+        aspect-ratio: 1;
+        background: #000;
+        border-radius: 12px;
+        background-size: cover;
+        background-position: center;
+        box-shadow: 0 0 25px rgba(13, 33, 161, .5);
+        position: relative;
+      }
 
-#shuffleBtn {
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#0d21a1;
-  color:#eef0f2;
-  border:none;
-  cursor:pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-#shuffleBtn:hover {
-  transform: scale(1.15);
-  background:#0f2fff;
-}
-#shuffleBtn:active {
-  transform: scale(0.95);
-}
+      /* PROGRESS BAR */
+      .progress-container {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+        margin-top: 10px;
+        cursor: pointer;
+        position: relative;
+      }
 
-button{
-  background:#0d21a1;
-  border:none;
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  color:#eef0f2;
-  font-size:24px;
-  cursor:pointer;
-  transition: all 0.2s ease;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-button:hover{
-  transform: scale(1.15);
-  background:#0f2fff;
-}
-button:active{
-  transform: scale(0.95);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
+      .progress {
+        height: 100%;
+        background: #0f2fff;
+        border-radius: 3px;
+        width: 0%;
+      }
 
-/* PLAYLIST */
-.playlist{
-  flex:1;
-  overflow-y:auto;
-  border-top:1px solid rgba(255,255,255,.1);
-  padding:10px 6px 10px 6px;
-  box-sizing:border-box;
-}
+      /* SONG INFO CENTERED */
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 8px;
+      }
 
-/* COOL SCROLLBAR FOR PLAYLIST */
-.playlist::-webkit-scrollbar {
-  width: 8px;
-}
-.playlist::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.05);
-  border-radius: 4px;
-}
-.playlist::-webkit-scrollbar-thumb {
-  background: #0f2fff;
-  border-radius: 4px;
-  transition: background 0.2s;
-}
-.playlist::-webkit-scrollbar-thumb:hover {
-  background: #00f;
-}
+      .artist {
+        font-size: 16px;
+        opacity: .7;
+        margin-bottom: 8px;
+      }
 
-.song{
-  padding:10px;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:14px;
-  transition: background 0.2s;
-}
-.song:hover{
-  background:#0d21a1;
-}
-.song.active{
-  background:#0f2fff;
-}
-</style>
-</head>
+      /* CONTROLS */
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
 
-<body>
-<div class="stars" id="stars"></div>
+      #shuffleBtn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #0d21a1;
+        color: #eef0f2;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
 
-<div class="player">
-  <div class="art" id="artwork"></div>
+      #shuffleBtn:hover {
+        transform: scale(1.15);
+        background: #0f2fff;
+      }
 
-  <!-- PROGRESS BAR -->
-  <div class="progress-container" id="progressContainer">
-    <div class="progress" id="progress"></div>
-  </div>
+      #shuffleBtn:active {
+        transform: scale(0.95);
+      }
 
-  <div>
-    <div class="title" id="title">Mixtape</div>
-    <div class="artist" id="artist"></div>
-  </div>
+      button {
+        background: #0d21a1;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        color: #eef0f2;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
 
-  <div class="controls">
-    <button id="prevBtn">
-      <!-- previous SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><title>previous-fill</title><path fill="currentColor" d="M3.885 21.06a.76.76 0 0 1-.75-.75V3.69a.75.75 0 0 1 1.5 0v16.6a.75.75 0 0 1-.75.77m16.98-15.713v13.25a2.35 2.35 0 0 1-.32 1.13a2.2 2.2 0 0 1-1.89 1.07h-.1a2.1 2.1 0 0 1-1.11-.36l-9.13-6.12a2.25 2.25 0 0 1-.71-.76a2.3 2.3 0 0 1-.27-1a2.2 2.2 0 0 1 .2-1a2.2 2.2 0 0 1 .64-.81l9.14-7.09a2.2 2.2 0 0 1 1.13-.44a2.2 2.2 0 0 1 2.09 1.02c.204.335.318.718.33 1.11"/></svg>
-    </button>
-    
-    <button id="playBtn">
-      <!-- initial play SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><title>play-bold</title><path fill="currentColor" d="M21.409 9.353a2.998 2.998 0 0 1 0 5.294L8.597 21.614C6.534 22.737 4 21.277 4 18.968V5.033c0-2.31 2.534-3.769 4.597-2.648z"/></svg>
-    </button>
-    
-    <button id="nextBtn">
-      <!-- next SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><title>next-fill</title><path fill="currentColor" d="M20.095 21a.75.75 0 0 1-.75-.75V3.75a.75.75 0 0 1 1.5 0v16.5a.74.74 0 0 1-.75.75m-3.4-9.589a2.25 2.25 0 0 1-.85 1.82l-9.11 7.09c-.326.247-.713.4-1.12.44h-.23a2.14 2.14 0 0 1-1-.22a2.2 2.2 0 0 1-.9-.81a2.17 2.17 0 0 1-.33-1.16V5.421a2.2 2.2 0 0 1 .31-1.12a2.25 2.25 0 0 1 .85-.8a2.18 2.18 0 0 1 2.24.1l9.12 6.08c.29.191.53.448.7.75a2.3 2.3 0 0 1 .32.98"/></svg>
-    </button>
-    
-    <button id="shuffleBtn">
-      <!-- shuffle SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><title>shuffle-fill</title><g fill="none"><path d="M0 0v24h24V0zm11.407 23.258l.011.002l.071.035l.02.004l.014-.004l.071-.036q.016-.004.024.006l.004.01l.017.428l-.005.02l-.01.013l-.104.074l-.015.004l-.012-.004l-.104-.074l-.012-.016l-.004-.017l.017-.427q.004-.016.016-.018Zm-.265-.113l.014.002l.184.093l.01.01l.003.011l-.018.43l-.005.012l-.008.008l-.201.092a.03.03 0 0 1-.029-.008l-.004-.014l.034-.614q.005-.018.02-.022m.715.002a.02.02 0 0 1 .027.006l.006.014l.034.614q-.001.018-.017.024l-.015-.002l-.201-.093l-.01-.008l-.003-.011l-.018-.43l.003-.012l.01-.01z"/><path fill="currentColor" d="M17.802 3.183c-.582-.305-1.274.146-1.33.865q-.017.201-.032.452a5.5 5.5 0 0 0-4.887 3.04L11 8.646l-.553-1.106a5.5 5.5 0 0 0-4.92-3.04H4a1.5 1.5 0 1 0 0 3h1.528a2.5 2.5 0 0 1 2.236 1.382L9.323 12l-1.56 3.118A2.5 2.5 0 0 1 5.529 16.5H4a1.5 1.5 0 1 0 0 3h1.528a5.5 5.5 0 0 0 4.92-3.04L11 15.354l.553 1.106a5.5 5.5 0 0 0 4.885 3.04q.018.321.039.565c.054.671.684 1.056 1.26.755c.38-.198.933-.506 1.591-.934a20 20 0 0 0 1.515-1.083c.52-.411.539-1.216.05-1.606a20 20 0 0 0-1.533-1.1a19 19 0 0 0-1.558-.914c-.582-.305-1.274.146-1.33.865q-.017.201-.032.452a2.5 2.5 0 0 1-2.204-1.382L12.677 12l1.56-3.118a2.5 2.5 0 0 1 2.2-1.382q.02.322.04.565c.054.671.684 1.056 1.26.755a20 20 0 0 0 1.591-.934c.66-.428 1.173-.812 1.515-1.083c.52-.411.539-1.216.05-1.606a20 20 0 0 0-1.533-1.1a19 19 0 0 0-1.558-.914"/></g></svg>
-    </button>
-    
-  </div>
+      button:hover {
+        transform: scale(1.15);
+        background: #0f2fff;
+      }
 
-  <div class="playlist" id="songlist"></div>
+      button:active {
+        transform: scale(0.95);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
 
-  <audio id="audio"></audio>
-</div>
+      /* PLAYLIST */
+      .playlist {
+        flex: 1;
+        overflow-y: auto;
+        border-top: 1px solid rgba(255, 255, 255, .1);
+        padding: 10px 6px 10px 6px;
+        /* top/right/bottom/left padding */
+        box-sizing: border-box;
+      }
 
-<script>
-/* STAR FIELD */
-const starContainer = document.getElementById("stars");
-for(let i=0;i<120;i++){
-  let star = document.createElement("div");
-  star.className="star";
-  star.style.left=Math.random()*100+"%";
-  star.style.top=Math.random()*100+"%";
-  star.style.animationDelay=Math.random()*3+"s";
-  starContainer.appendChild(star);
-}
+      /* COOL SCROLLBAR FOR PLAYLIST */
+      .playlist::-webkit-scrollbar {
+        width: 8px;
+      }
 
-/* SONGS ARRAY */
-const songs = [
-  {
-    url: "https://raw.githubusercontent.com/jananimenon/saanj-e-ghazal/main/songs/Chitra%20Singh%20%26%20Jagjit%20Singh%20-%20Baad%20Muddat%20Unhain%20(From%20Main%20Aur%20Meri%20Tanhai).mp3",
-    title: "Baad Mudat Unhein",
-    artist: "Jagjit Singh",
-    artwork: "https://raw.githubusercontent.com/jananimenon/saanj-e-ghazal/main/images/Jagjit%20Singh.jpg"
-  },
-  {
-    url: "https://raw.githubusercontent.com/jananimenon/saanj-e-ghazal/main/songs/Asha%20Bhosle%20%26%20Jagjit%20Singh%20-%20Jab%20Samne%20Tum%20Aa%20Jate%20Ho.mp3",
-    title: "Jab Saamne Tum Aajate Ho",
-    artist: "Jagjit Singh, Asha Bhonsle",
-    artwork: "https://raw.githubusercontent.com/jananimenon/saanj-e-ghazal/main/images/Jagjit%20Singh.jpg"
-  },
-  {
-    url: "https://raw.githubusercontent.com/jananimenon/saanj-e-ghazal/main/songs/Ek%20Pyar%20Ka%20Nagma%20Hai%20_%20Lyrical%20Video%20_%20Jagjit%20Singh%20Old%20Hindi%20song%20_%20Evergreen%20Song.mp3",
-    title: "Ek Pyaar Ka Nagma Hai",
-    artist: "Jagjit Singh",
-    artwork: "https://raw.githubusercontent.com/jananimenon/saanj-e-ghazal/main/images/Jagjit%20Singh.jpg"
-  },
-  {
-    url: "https://raw.githubusercontent.com/jananimenon/saanj-e-ghazal/main/songs/Gham%20Ka%20Khazana%20Tera%20Bhi%20Hai%20With%20Lyrical%20_%20Jagjit%20Singh%20_%20Lata%20Mangeshkar%20_%20Sentimental%20Ghazal.mp3",
-    title: "Gham Ka Khazana Tera Bhi Hai",
-    artist: "Jagjit Singh",
-    artwork: "https://raw.githubusercontent.com/jananimenon/saanj-e-ghazal/main/images/Jagjit%20Singh.jpg"
-  }
-];
+      .playlist::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+      }
 
-let currentIndex = 0;
-const audio = document.getElementById("audio");
-const artwork = document.getElementById("artwork");
-const titleDiv = document.getElementById("title");
-const artistDiv = document.getElementById("artist");
-const list = document.getElementById("songlist");
-const playBtn = document.getElementById("playBtn");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const shuffleBtn = document.getElementById("shuffleBtn");
-const progress = document.getElementById("progress");
-const progressContainer = document.getElementById("progressContainer");
+      .playlist::-webkit-scrollbar-thumb {
+        background: #0f2fff;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
 
-/* BUILD PLAYLIST */
-songs.forEach((song, i)=>{
-  let div = document.createElement("div");
-  div.className = "song";
-  div.innerText = `${song.title} - ${song.artist}`;
-  div.onclick = () => playSong(i);
-  list.appendChild(div);
-});
+      .playlist::-webkit-scrollbar-thumb:hover {
+        background: #00f;
+      }
 
-/* HIGHLIGHT CURRENT SONG */
-function highlightCurrent(){
-  document.querySelectorAll(".song").forEach((el, i)=>{
-    el.classList.toggle("active", i === currentIndex);
-  });
-}
+      .song {
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.2s;
+      }
 
-/* PLAY SONG */
-function playSong(i){
-  currentIndex = i;
-  audio.src = songs[i].url;
-  audio.play();
-  titleDiv.innerText = songs[i].title;
-  artistDiv.innerText = songs[i].artist;
-  artwork.style.backgroundImage = `url(${songs[i].artwork})`;
-  playBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><title>pause-bold</title><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-  highlightCurrent();
-}
+      .song:hover {
+        background: #0d21a1;
+      }
 
-/* PLAY/PAUSE */
-function togglePlay(){
-  if(audio.paused){
-    audio.play();
-    playBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><title>pause-bold</title><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-  } else {
-    audio.pause();
-    playBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><title>play-bold</title><path fill="currentColor" d="M21.409 9.353a2.998 2.998 0 0 1 0 5.294L8.597 21.614C6.534 22.737 4 21.277 4 18.968V5.033c0-2.31 2.534-3.769 4.597-2.648z"/></svg>`;
-  }
-}
+      .song.active {
+        background: #0f2fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+    <div class="player">
+      <div class="art" id="artwork"></div>
+      <!-- PROGRESS BAR -->
+      <div class="progress-container" id="progressContainer">
+        <div class="progress" id="progress"></div>
+      </div>
+      <div>
+        <div class="title" id="title">Mixtape</div>
+        <div class="artist" id="artist"></div>
+      </div>
+      <div class="controls">
+        <button id="prevBtn">
+          <!-- previous SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+            <title>previous-fill</title>
+            <path fill="currentColor" d="M3.885 21.06a.76.76 0 0 1-.75-.75V3.69a.75.75 0 0 1 1.5 0v16.6a.75.75 0 0 1-.75.77m16.98-15.713v13.25a2.35 2.35 0 0 1-.32 1.13a2.2 2.2 0 0 1-1.89 1.07h-.1a2.1 2.1 0 0 1-1.11-.36l-9.13-6.12a2.25 2.25 0 0 1-.71-.76a2.3 2.3 0 0 1-.27-1a2.2 2.2 0 0 1 .2-1a2.2 2.2 0 0 1 .64-.81l9.14-7.09a2.2 2.2 0 0 1 1.13-.44a2.2 2.2 0 0 1 2.09 1.02c.204.335.318.718.33 1.11" />
+          </svg>
+        </button>
+        <button id="playBtn">
+          <!-- initial play SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+            <title>play-bold</title>
+            <path fill="currentColor" d="M21.409 9.353a2.998 2.998 0 0 1 0 5.294L8.597 21.614C6.534 22.737 4 21.277 4 18.968V5.033c0-2.31 2.534-3.769 4.597-2.648z" />
+          </svg>
+        </button>
+        <button id="nextBtn">
+          <!-- next SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+            <title>next-fill</title>
+            <path fill="currentColor" d="M20.095 21a.75.75 0 0 1-.75-.75V3.75a.75.75 0 0 1 1.5 0v16.5a.74.74 0 0 1-.75.75m-3.4-9.589a2.25 2.25 0 0 1-.85 1.82l-9.11 7.09c-.326.247-.713.4-1.12.44h-.23a2.14 2.14 0 0 1-1-.22a2.2 2.2 0 0 1-.9-.81a2.17 2.17 0 0 1-.33-1.16V5.421a2.2 2.2 0 0 1 .31-1.12a2.25 2.25 0 0 1 .85-.8a2.18 2.18 0 0 1 2.24.1l9.12 6.08c.29.191.53.448.7.75a2.3 2.3 0 0 1 .32.98" />
+          </svg>
+        </button>
+        <button id="shuffleBtn">
+          <!-- shuffle SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+            <title>shuffle-fill</title>
+            <g fill="none">
+              <path d="M0 0v24h24V0zm11.407 23.258l.011.002l.071.035l.02.004l.014-.004l.071-.036q.016-.004.024.006l.004.01l.017.428l-.005.02l-.01.013l-.104.074l-.015.004l-.012-.004l-.104-.074l-.012-.016l-.004-.017l.017-.427q.004-.016.016-.018Zm-.265-.113l.014.002l.184.093l.01.01l.003.011l-.018.43l-.005.012l-.008.008l-.201.092a.03.03 0 0 1-.029-.008l-.004-.014l.034-.614q.005-.018.02-.022m.715.002a.02.02 0 0 1 .027.006l.006.014l.034.614q-.001.018-.017.024l-.015-.002l-.201-.093l-.01-.008l-.003-.011l-.018-.43l.003-.012l.01-.01z" />
+              <path fill="currentColor" d="M17.802 3.183c-.582-.305-1.274.146-1.33.865q-.017.201-.032.452a5.5 5.5 0 0 0-4.887 3.04L11 8.646l-.553-1.106a5.5 5.5 0 0 0-4.92-3.04H4a1.5 1.5 0 1 0 0 3h1.528a2.5 2.5 0 0 1 2.236 1.382L9.323 12l-1.56 3.118A2.5 2.5 0 0 1 5.529 16.5H4a1.5 1.5 0 1 0 0 3h1.528a5.5 5.5 0 0 0 4.92-3.04L11 15.354l.553 1.106a5.5 5.5 0 0 0 4.885 3.04q.018.321.039.565c.054.671.684 1.056 1.26.755c.38-.198.933-.506 1.591-.934a20 20 0 0 0 1.515-1.083c.52-.411.539-1.216.05-1.606a20 20 0 0 0-1.533-1.1a19 19 0 0 0-1.558-.914c-.582-.305-1.274.146-1.33.865q-.017.201-.032.452a2.5 2.5 0 0 1-2.204-1.382L12.677 12l1.56-3.118a2.5 2.5 0 0 1 2.2-1.382q.02.322.04.565c.054.671.684 1.056 1.26.755a20 20 0 0 0 1.591-.934c.66-.428 1.173-.812 1.515-1.083c.52-.411.539-1.216.05-1.606a20 20 0 0 0-1.533-1.1a19 19 0 0 0-1.558-.914" />
+            </g>
+          </svg>
+        </button>
+      </div>
+      <div class="playlist" id="songlist"></div>
+      <audio id="audio"></audio>
+    </div>
+    <script>
+      /* STAR FIELD */
+      const starContainer = document.getElementById("stars");
+      for (let i = 0; i < 120; i++) {
+        let star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        star.style.animationDelay = Math.random() * 3 + "s";
+        starContainer.appendChild(star);
+      } /* SONGS ARRAY */
+      const songs = [{
+        url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Chitra%20Singh%20%26%20Jagjit%20Singh%20-%20Baad%20Muddat%20Unhain%20(From%20Main%20Aur%20Meri%20Tanhai).mp3",
+        title: "Baad Mudat Unhein",
+        artist: "Jagjit Singh",
+        artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
+      }, {
+        url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Asha%20Bhosle%20%26%20Jagjit%20Singh%20-%20Jab%20Samne%20Tum%20Aa%20Jate%20Ho.mp3",
+        title: "Jab Saamne Tum Aajate Ho",
+        artist: "Jagjit Singh, Asha Bhonsle",
+        artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
+      }, {
+        url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Ek%20Pyar%20Ka%20Nagma%20Hai%20_%20Lyrical%20Video%20_%20Jagjit%20Singh%20Old%20Hindi%20song%20_%20Evergreen%20Song.mp3",
+        title: "Ek Pyaar Ka Nagma Hai",
+        artist: "Jagjit Singh",
+        artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
+      }, {
+        url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Gham%20Ka%20Khazana%20Tera%20Bhi%20Hai%20With%20Lyrical%20_%20Jagjit%20Singh%20_%20Lata%20Mangeshkar%20_%20Sentimental%20Ghazal.mp3",
+        title: "Gham Ka Khazana Tera Bhi Hai",
+        artist: "Jagjit Singh",
+        artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
+      }];
+      let currentIndex = 0;
+      const audio = document.getElementById("audio");
+      const artwork = document.getElementById("artwork");
+      const titleDiv = document.getElementById("title");
+      const artistDiv = document.getElementById("artist");
+      const list = document.getElementById("songlist");
+      const playBtn = document.getElementById("playBtn");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const shuffleBtn = document.getElementById("shuffleBtn");
+      const progress = document.getElementById("progress");
+      const progressContainer = document.getElementById("progressContainer"); /* BUILD PLAYLIST */
+      songs.forEach((song, i) => {
+        let div = document.createElement("div");
+        div.className = "song";
+        div.innerText = $ {
+          song.title
+        } - $ {
+          song.artist
+        };
+        div.onclick = () => playSong(i);
+        list.appendChild(div);
+      }); /* HIGHLIGHT CURRENT SONG */
+      function highlightCurrent() {
+        document.querySelectorAll(".song").forEach((el, i) => {
+          el.classList.toggle("active", i === currentIndex);
+        });
+      } /* PLAY SONG */
+      function playSong(i) {
+        currentIndex = i;
+        audio.src = songs[i].url;
+        audio.play();
+        titleDiv.innerText = songs[i].title;
+        artistDiv.innerText = songs[i].artist;
+        artwork.style.backgroundImage = url($ {
+          songs[i].artwork
+        });
+        playBtn.innerText = "❚❚";
+        highlightCurrent();
+      } /* PLAY/PAUSE */
+      function togglePlay() {
+        if (audio.paused) {
+          audio.play();
+          playBtn.innerText = "❚❚";
+        } else {
+          audio.pause();
+          playBtn.innerText = "▶";
+        }
+      } /* NEXT/PREVIOUS/SHUFFLE */
+      function nextSong() {
+        currentIndex = (currentIndex + 1) % songs.length;
+        playSong(currentIndex);
+      }
 
-/* NEXT/PREVIOUS/SHUFFLE */
-function nextSong(){
-  currentIndex = (currentIndex +1)%songs.length;
-  playSong(currentIndex);
-}
-function prevSong(){
-  currentIndex = (currentIndex -1 + songs.length)%songs.length;
-  playSong(currentIndex);
-}
-function shuffleSong(){
-  let rand = Math.floor(Math.random()*songs.length);
-  playSong(rand);
-}
+      function prevSong() {
+        currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+        playSong(currentIndex);
+      }
 
-let shuffleOn = false;
-shuffleBtn.onclick = () => {
-  shuffleOn = !shuffleOn;
-  shuffleBtn.style.background = shuffleOn ? "#00f" : "#0d21a1";
-  shuffleSong();
-};
-
-/* UPDATE PROGRESS */
-audio.addEventListener("timeupdate", ()=>{
-  const percent = (audio.currentTime/audio.duration)*100;
-  progress.style.width = percent + "%";
-});
-
-/* CLICK PROGRESS TO SEEK */
-progressContainer.addEventListener("click",(e)=>{
-  const rect = progressContainer.getBoundingClientRect();
-  const offsetX = e.clientX - rect.left;
-  const percent = offsetX/rect.width;
-  audio.currentTime = percent * audio.duration;
-});
-
-/* EVENT LISTENERS */
-playBtn.onclick = togglePlay;
-prevBtn.onclick = prevSong;
-nextBtn.onclick = nextSong;
-audio.addEventListener("ended", ()=> shuffleOn ? shuffleSong() : nextSong());
-
-/* AUTOPLAY FIRST SONG */
-window.onload = ()=>{ playSong(0); }
-
-</script>
-</body>
+      function shuffleSong() {
+        let rand = Math.floor(Math.random() * songs.length);
+        playSong(rand);
+      }
+      let shuffleOn = false;
+      shuffleBtn.onclick = () => {
+          shuffleOn = !shuffleOn;
+          if (shuffleOn) {
+            shuffleBtn.style.background = "#00f"; // highlight when active } else { shuffleBtn.style.background = "#0d21a1"; } shuffleSong(); }; /* UPDATE PROGRESS */ audio.addEventListener("timeupdate", ()=>{ const percent = (audio.currentTime/audio.duration)*100; progress.style.width = percent + "%"; }); /* CLICK PROGRESS TO SEEK */ progressContainer.addEventListener("click",(e)=>{ const rect = progressContainer.getBoundingClientRect(); const offsetX = e.clientX - rect.left; const totalWidth = rect.width; const percent = offsetX/totalWidth; audio.currentTime = percent * audio.duration; }); /* EVENT LISTENERS */ playBtn.onclick = togglePlay; prevBtn.onclick = prevSong; nextBtn.onclick = nextSong; shuffleBtn.onclick = shuffleSong; audio.addEventListener("ended", nextSong); /* AUTOPLAY FIRST SONG */ window.onload = ()=>{ playSong(0); } 
+    </script>
+  </body>
 </html>
