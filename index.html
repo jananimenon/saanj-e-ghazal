@@ -13,8 +13,11 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  min-height:100vh;
   overflow:hidden;
+  padding-top:40px;  /* mandatory top space */
+  padding-bottom:40px; /* mandatory bottom space */
+  box-sizing:border-box;
 }
 
 /* STARS BACKGROUND */
@@ -55,6 +58,7 @@ body{
   flex-direction:column;
   gap:18px;
   text-align:center;
+  margin:auto; /* centers player vertically with padding above */
 }
 
 /* ARTWORK */
@@ -205,7 +209,6 @@ const songs = [
     artist: "Jagjit Singh, Asha Bhonsle",
     artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
   }
-  // add more songs here
 ];
 
 let currentIndex = 0;
